@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>notetty</title>
+    <link rel="stylesheet" href="indexstyle.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terminalCont">
+        <div class="terminalPrompt">
+            <textarea class="userInput" id="textBox" autocomplete="off" autofocus rows="1"></textarea>
+        </div>
+    </div>
+
+    <script>
+        const textBox = document.getElementById("textBox");
+        textBox.addEventListener("input", function(e)  {
+            e.preventDefault();
+            console.log("detect success")
+            textBox.style.height = textBox.scrollHeight + "px";
+            console.log(textBox.style.height)
+        });
+    </script>
+</body>
+</html>
