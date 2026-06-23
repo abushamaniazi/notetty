@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminalCont">
-        <div class="terminalPrompt">
+    <div class="textCont">
+        <div class="textPrompt">
             <textarea class="userInput" id="textBox" autocomplete="off" autofocus rows="1"></textarea>
         </div>
     </div>
@@ -18,10 +18,16 @@
         <div class="escCont" id="escContr">
             <div class="escBg"></div>
             <div class="escMenu">
-                <button class="escBtn" onclick="test()">save placeholder</span> 
-                <button class="escBtn" onclick="test()">open placeholder</span> 
-                <button class="escBtn" id="colPick" onclick="test()">pick theme</span>
-                <button class="escBtn" id="fontChange" onclick="test()">change font</button>
+                <button class="uBtn" onclick="test()">save placeholder</button> 
+                <button class="uBtn" onclick="test()">open placeholder</button> 
+                <button class="uBtn" id="colPick" onclick="test()">pick theme</button>
+                <button class="uBtn" id="fontChange" onclick="fontUI()">change font</button>
+            </div>
+            <div class="fontCont" id="fontCont">
+                <button class="uBtn" id="fileUp" onclick="redirect()">upload file</button>
+                <input type="file" id="realUp" style="display: none;"/>  
+                <input type="text" id="fontLink" placeholder="enter font link..."/>
+                <button class="uBtn" id="fontBtn" type="submit">confirm link</button>
             </div>
         </div>
     </div>
@@ -30,12 +36,17 @@
         const escUn = document.getElementById("escUn");
         escUn.tabIndex = -1
         const textBox = document.getElementById("textBox");
+        const fontCont = document.getElementById("fontCont");
+        const uplBtn = document.getElementById("fileUp");
+        const uplInput = document.getElementById("realUp");
+        const fontLink = document.getElementById("fontLink");
+        const fontBtn = document.getElementById("fontBtn");
 
         window.addEventListener("keydown", function(e) {
             if (e.key === "Escape") {
-                const isVisible = escUn.classList.toggle("visible")
+                const isEscVisible = escUn.classList.toggle("visible");
                 e.preventDefault()
-                if (isVisible) {
+                if (isEscVisible) {
                     escUn.focus();
                     textBox.blur();
                     textBox.tabIndex = -1
@@ -56,6 +67,50 @@
         function test() {
             console.log("button pressed");  
         }
+
+        function redirect() {
+            uplBtn.addEventListener("click", () => {
+                uplInput.click();
+            });
+        }
+
+        function fontUI() {
+            const isFCVisible = fontCont.classList.toggle("visible");
+            console.log("font buton");
+        }
+
+        fontBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            const fontText = fontLink.value;
+            uploadedFont = fontText.trim();
+            console.log("submitted link:", uploadedFont);
+            link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = uploadedFont;
+            document.head.appendChild(link);
+            // fontName = uploadedFont.split();
+            const searchParams = new URLSearchParams(uploadedFont);
+            const family = searchParams.get("family");
+            const fontFamily = family.replaceAll("+", " ");
+            document.documentElement.style.setProperty("--custom-font", 'fontFamily, monospace');
+            fontLink.value = '';
+        });
+        fontLink.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                const fontText = fontLink.value;
+                uploadedFont = fontText.trim();
+                console.log("submitted link:", uploadedFont);
+                link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = uploadedFont;
+                document.head.appendChild(link);
+                const shortUrl = new URL(uploadedFont)
+                const familyName = shortUrl.searchParams.get("family");
+                // const family = searchParams.replaceAll("+", " ");
+                document.documentElement.style.setProperty("--custom-font", `${familyName}, monospace`);
+                fontLink.value = '';
+            }
+        });
     </script>
 </body>
 </html>

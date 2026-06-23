@@ -1,31 +1,31 @@
+:root {
+    --custom-font: "JetBrains Mono", monospace;
+}
+
 body {
     background-color: rgb(18, 18, 18);
-    font-family: "JetBrains Mono", monospace;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
     margin: 0;
     padding: 0;
 }
 
-.terminalCont {
+*, textarea, button {
+    font-family: var(--custom-font);
+}
+
+.textCont {
     margin-top: 6px;
 }
 
-.terminalPrompt {
+.textPrompt {
     display: flex;
     flex-direction: row;
 }
-.terminalPrompt span {
+.textPrompt span {
     color: white;
     margin-left: 4px;
 }
 
 .userInput {
-    font-family: "JetBrains Mono", monospace;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
     resize: none;
     width: 100%;
     height: auto;
@@ -85,7 +85,7 @@ body {
     align-items: center;
 }
 
-.escBtn {
+.uBtn {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
@@ -94,11 +94,10 @@ body {
     user-select: none;
     background: none;
     border: none;
-    font-family: inherit;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
 }
-.escBtn::after {
+.uBtn::after {
     content: '';
     position: absolute;
     left: 0;
@@ -110,19 +109,53 @@ body {
     transform-origin: left;
     transition: transform 0.3s ease !important;
 }
-.escBtn:hover {
+.uBtn:hover {
     color: white;
 }
-.escBtn:hover::after {
+.uBtn:hover::after {
     transform: scaleX(1);
 }
-.escBtn:focus {
+.uBtn:focus {
     outline: none;
 }
-.escBtn:active {
+.uBtn:active {
     transform: scale(0.95);
 }
 
 #colPick {
     align-items: center;
 }
+
+#fontCont {
+    position: absolute;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition:  0.2s ease-in-out;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: baseline;
+    left: 75%;
+    transform: translateX(-50%);
+}
+#fontCont.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#fontLink { 
+    outline: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+}
+
+#fileUp {
+    align-items: center;
+}
+
+/* #fontLink { */
+    /* width: 75%; */
+/* } */
