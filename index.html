@@ -88,11 +88,10 @@
             link.rel = "stylesheet";
             link.href = uploadedFont;
             document.head.appendChild(link);
-            // fontName = uploadedFont.split();
-            const searchParams = new URLSearchParams(uploadedFont);
-            const family = searchParams.get("family");
-            const fontFamily = family.replaceAll("+", " ");
-            document.documentElement.style.setProperty("--custom-font", 'fontFamily, monospace');
+            const shortUrl = new URL(uploadedFont);
+            const familyName = shortUrl.searchParams.get("family");
+            const family = familyName.replaceAll("+", " ");
+            document.documentElement.style.setProperty("--custom-font", `${family}, monospace`);
             fontLink.value = '';
         });
         fontLink.addEventListener("keydown", function(e) {
@@ -104,10 +103,10 @@
                 link.rel = "stylesheet";
                 link.href = uploadedFont;
                 document.head.appendChild(link);
-                const shortUrl = new URL(uploadedFont)
+                const shortUrl = new URL(uploadedFont);
                 const familyName = shortUrl.searchParams.get("family");
-                // const family = searchParams.replaceAll("+", " ");
-                document.documentElement.style.setProperty("--custom-font", `${familyName}, monospace`);
+                const family = familyName.replaceAll("+", " ");
+                document.documentElement.style.setProperty("--custom-font", `${family}, monospace`);
                 fontLink.value = '';
             }
         });
